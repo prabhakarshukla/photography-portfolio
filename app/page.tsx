@@ -227,10 +227,10 @@ export default function Home() {
 
                   {/* WATERMARK */}
                   <div className="pointer-events-none absolute top-2 right-3">
-  <span className="text-black/40 text-[10px] md:text-xs font-medium tracking-wide bg-white/30 px-2 py-[2px] rounded-md backdrop-blur-sm">
-    By Prabhakar Shukla
-  </span>
-</div>
+                    <span className="rounded-md bg-white/30 px-2 py-[2px] text-[10px] font-medium tracking-wide text-black/40 backdrop-blur-sm md:text-xs">
+                      Prabhakar Shukla
+                    </span>
+                  </div>
 
                   {/* HOVER GLOW */}
                   <div className="absolute inset-0 rounded-2xl bg-[#C3D809]/0 transition duration-500 group-hover:bg-[#C3D809]/10" />
@@ -333,16 +333,27 @@ export default function Home() {
                 ×
               </button>
 
-              <motion.img
-                src={selectedImage}
-                alt="Selected preview"
-                className="max-h-[90vh] max-w-[90vw] rounded-2xl object-contain shadow-2xl"
+              <div
+                className="relative"
                 onClick={(e) => e.stopPropagation()}
-                initial={{ scale: 0.92, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.92, opacity: 0 }}
-                transition={{ duration: 0.3 }}
-              />
+              >
+                <motion.img
+                  src={selectedImage}
+                  alt="Selected preview"
+                  className="max-h-[90vh] max-w-[90vw] rounded-2xl object-contain shadow-2xl"
+                  initial={{ scale: 0.92, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  exit={{ scale: 0.92, opacity: 0 }}
+                  transition={{ duration: 0.3 }}
+                />
+
+                {/* MODAL WATERMARK */}
+                <div className="pointer-events-none absolute top-3 right-4">
+                  <span className="rounded-md bg-white/20 px-3 py-[4px] text-xs font-medium tracking-[0.15em] text-black/50 backdrop-blur-md md:text-sm">
+                    Prabhakar Shukla
+                  </span>
+                </div>
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
