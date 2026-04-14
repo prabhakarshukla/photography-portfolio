@@ -3,355 +3,285 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const photos = Array.from({ length: 15 }, (_, i) => ({
-  id: i + 1,
-  src: `/images/photo${i + 1}.jpg`,
-  alt: `Photo ${i + 1}`,
-}));
+const photos = [
+  {
+    id: 1,
+    src: "/images/photo1.jpg",
+    alt: "Photo 1",
+    location: "home lucknow, Uttar Pradesh",
+    story: "The photo from where my photography journey started .",
+  },
+  {
+    id: 2,
+    src: "/images/photo2.jpg",
+    alt: "Photo 2",
+    location: "SRM AP Campus",
+    story:
+      "The cherry blossoms were in full bloom, creating a dreamy atmosphere that I couldn’t resist capturing.",
+  },
+  {
+    id: 3,
+    src: "/images/photo3.jpg",
+    alt: "Photo 3",
+    location: "clock tower , lucknow",
+    story:
+      "Har ghadi yahan ek kahani hai, aur yeh tasveer uss kahani ka ek hissa hai.",
+  },
+  {
+    id: 4,
+    src: "/images/photo4.jpg",
+    alt: "Photo 4",
+    location: "Bada Imambara, Lucknow",
+    story: "Har imarat ek daastaan hai, bas sunne wala chahiye.",
+  },
+  {
+    id: 5,
+    src: "/images/photo5.jpg",
+    alt: "Photo 5",
+    location: "The Residency, Lucknow",
+    story:
+      "The most unrealistic photo I have ever taken, the colors were so vibrant that it felt like a painting.",
+  },
+  {
+    id: 6,
+    src: "/images/photo6.jpg",
+    alt: "Photo 6",
+    location: "Home Lucknow, Uttar Pradesh",
+    story: "Rain reminds us that we cannot stop what can&apos;t be stopped . The world will turn, the seasons changes , the rain falls , and life goes on.",
+  },
+  {
+    id: 7,
+    src: "/images/photo7.jpg",
+    alt: "Photo 7",
+    location: "Begum Hazrat Mahal Park, Lucknow",
+    story: "Yahan har mod par ek daastaan milti hai.",
+  },
+  {
+    id: 8,
+    src: "/images/photo8.jpg",
+    alt: "Photo 8",
+    location: "Home Lucknow, Uttar Pradesh",
+    story: "rainy days have a unique charm, and this photo captures that essence perfectly.",
+  },
+  {
+    id: 9,
+    src: "/images/photo9.jpg",
+    alt: "Photo 9",
+    location: "Jagannath Temple, hyderabad",
+    story: "In the quiet presence of devotion, everything else fades away.",
+  },
+  {
+    id: 10,
+    src: "/images/photo10.jpg",
+    alt: "Photo 10",
+    location: "charminar, hyderabad",
+    story: "Where history glows under city lights",
+  },
+  {
+    id: 11,
+    src: "/images/photo11.jpg",
+    alt: "Photo 11",
+    location: "Rishikesh, Uttarakhand",
+    story: "like a scene from a dream you don&apos;t remember.",
+  },
+  {
+    id: 12,
+    src: "/images/photo12.jpg",
+    alt: "Photo 12",
+    location: "Rishikesh, Uttarakhand",
+    story: "Thandi hawa, dheere behta paani… aur khud se ek khamosh mulaqat.",
+  },
+  {
+    id: 13,
+    src: "/images/photo13.jpg",
+    alt: "Photo 13",
+    location: "Mangalagiri",
+    story: "Lonely roads, loud thoughts.",
+  },
+  {
+    id: 14,
+    src: "/images/photo14.jpg",
+    alt: "Photo 14",
+    location: "Vijayawada, Andhra Pradesh",
+    story: "Where architecture meets spirituality, and every corner tells a story of devotion.",
+  },
+  {
+    id: 15,
+    src: "/images/photo15.jpg",
+    alt: "Photo 15",
+    location: "Viswanath Temple, Banaras",
+    story: "Framed by nature, held by faith.",
+  },
+];
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 40 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.8,
-      ease: "easeOut" as const,
-    },
-  },
-};
-
-const staggerContainer = {
-  hidden: {},
-  show: {
-    transition: {
-      staggerChildren: 0.12,
-    },
-  },
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
 };
 
 export default function Home() {
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedImage, setSelectedImage] = useState<any>(null);
   const [loading, setLoading] = useState(true);
-  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 1200);
-
-    const handleMouseMove = (e: MouseEvent) => {
-      setCursorPosition({ x: e.clientX, y: e.clientY });
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-
-    return () => {
-      clearTimeout(timer);
-      window.removeEventListener("mousemove", handleMouseMove);
-    };
+    const timer = setTimeout(() => setLoading(false), 600);
+    return () => clearTimeout(timer);
   }, []);
 
   return (
     <>
-      {/* CUSTOM CURSOR */}
-      <div
-        className="pointer-events-none fixed z-[100] hidden h-6 w-6 -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#C3D809]/70 bg-[#C3D809]/10 backdrop-blur-sm md:block"
-        style={{
-          left: `${cursorPosition.x}px`,
-          top: `${cursorPosition.y}px`,
-        }}
-      />
-
-      {/* LOADING SCREEN */}
+      {/* LOADING */}
       <AnimatePresence>
         {loading && (
           <motion.div
             className="fixed inset-0 z-[200] flex items-center justify-center bg-[#222022]"
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0, transition: { duration: 0.8 } }}
+            exit={{ opacity: 0 }}
           >
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="text-center"
-            >
-              <p className="mb-4 text-xs uppercase tracking-[0.5em] text-[#C3D809]">
-                Visual Diary
-              </p>
-              <h1 className="text-4xl text-white md:text-6xl">Prabhakar</h1>
-            </motion.div>
+            <h1 className="text-3xl text-white">Prabhakar</h1>
           </motion.div>
         )}
       </AnimatePresence>
 
       <main className="min-h-screen bg-[#222022] text-white">
         {/* NAVBAR */}
-        <header className="fixed left-0 top-0 z-50 w-full">
-          <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 md:px-12">
-            <a
-              href="#home"
-              className="text-lg tracking-[0.2em] text-white transition hover:text-[#C3D809]"
-            >
-              Prabhakar
-            </a>
+        <header className="fixed top-0 z-50 w-full">
+          <div className="flex justify-between px-4 py-4 md:px-12">
+            <a className="text-sm md:text-lg">Prabhakar</a>
+          </div>
 
-            <nav className="rounded-full border border-white/10 bg-black/20 px-4 py-2 backdrop-blur-md">
-              <ul className="flex items-center gap-5 text-sm text-white/80 md:gap-8">
-                <li>
-                  <a href="#home" className="transition hover:text-[#C3D809]">
-                    Home
-                  </a>
-                </li>
-                <li>
-                  <a href="#shots" className="transition hover:text-[#C3D809]">
-                    Shots
-                  </a>
-                </li>
-                <li>
-                  <a href="#about" className="transition hover:text-[#C3D809]">
-                    About
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#contact"
-                    className="transition hover:text-[#C3D809]"
-                  >
-                    Contact
-                  </a>
-                </li>
-              </ul>
+          {/* MOBILE NAV */}
+          <div className="px-4 md:hidden">
+            <nav className="rounded-full bg-black/50 px-4 py-2 text-[11px] flex justify-between">
+              <a href="#home">Home</a>
+              <a href="#shots">Shots</a>
+              <a href="#about">About</a>
+              <a href="#contact">Contact</a>
             </nav>
           </div>
         </header>
 
-        {/* HERO SECTION */}
+        {/* HERO */}
         <section
           id="home"
-          className="relative flex min-h-screen items-center overflow-hidden"
+          className="relative min-h-screen flex items-center pt-24"
         >
           <div
             className="absolute inset-0 bg-cover bg-center"
-            style={{
-              backgroundImage: "url('/images/photo4.jpg')",
-            }}
+            style={{ backgroundImage: "url('/images/photo4.jpg')" }}
           />
+          <div className="absolute inset-0 bg-black/50" />
 
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                "linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.5))",
-            }}
-          />
+          <div className="relative z-10 px-4 md:px-12">
+            <h1 className="text-3xl md:text-6xl">
+              Capturing Moments <br /> Beyond Words
+            </h1>
 
-          <div
-            className="absolute inset-x-0 bottom-0 h-40"
-            style={{
-              background:
-                "linear-gradient(to bottom, transparent, rgba(0,0,0,0.7))",
-            }}
-          />
-
-          <motion.div
-            className="relative z-10 max-w-3xl px-6 md:px-12"
-            variants={staggerContainer}
-            initial="hidden"
-            animate="show"
-          >
-            <motion.p
-              variants={fadeUp}
-              className="mb-4 text-xs uppercase tracking-[0.35em] text-white/80 md:text-sm"
-            >
-              Prabhakar&apos;s Visual Diary
-            </motion.p>
-
-            <motion.h1
-              variants={fadeUp}
-              className="max-w-2xl text-4xl font-medium leading-[1.1] tracking-[0.04em] text-white md:text-6xl lg:text-7xl"
-            >
-              Capturing Moments
-              <br />
-              Beyond Words
-            </motion.h1>
-
-            <motion.p
-              variants={fadeUp}
-              className="mt-6 max-w-lg text-sm italic tracking-wide text-white/70 md:text-base"
-            >
+            <p className="mt-4 text-sm text-white/70 max-w-md">
               Just a collection of moments I didn&apos;t want to forget.
-            </motion.p>
-
-            <motion.a
-              variants={fadeUp}
-              href="#shots"
-              className="mt-8 inline-block rounded-full border border-white/20 bg-white/10 px-6 py-3 text-sm tracking-[0.18em] text-white backdrop-blur-md transition hover:border-[#C3D809] hover:text-[#C3D809]"
-            >
-              VIEW SHOTS
-            </motion.a>
-          </motion.div>
+            </p>
+          </div>
         </section>
 
-        {/* GALLERY SECTION */}
-        <section id="shots" className="px-6 py-20 md:px-12">
-          <motion.h2
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, amount: 0.2 }}
-            variants={fadeUp}
-            className="mb-10 text-3xl font-semibold text-[#C3D809] md:text-4xl"
-          >
-            My Shots
-          </motion.h2>
-
+        {/* GALLERY */}
+        <section id="shots" className="px-4 py-16 md:px-12">
           <motion.div
-            className="columns-1 gap-5 sm:columns-2 lg:columns-3"
-            variants={staggerContainer}
+            className="columns-1 sm:columns-2 lg:columns-3 gap-4"
             initial="hidden"
             whileInView="show"
-            viewport={{ once: true, amount: 0.1 }}
           >
             {photos.map((photo) => (
-              <motion.button
+              <motion.div
                 key={photo.id}
                 variants={fadeUp}
-                onClick={() => setSelectedImage(photo.src)}
-                className="group mb-5 block w-full break-inside-avoid overflow-hidden rounded-2xl text-left"
+                className="mb-6 break-inside-avoid"
               >
-                <div className="relative overflow-hidden rounded-2xl">
-                  <img
-                    src={photo.src}
-                    alt={photo.alt}
-                    className="h-auto w-full rounded-2xl object-cover shadow-[0_10px_30px_rgba(0,0,0,0.25)] transition duration-500 group-hover:scale-[1.03] group-hover:opacity-90"
-                  />
+                <div
+                  className="cursor-pointer"
+                  onClick={() => setSelectedImage(photo)}
+                >
+                  {/* IMAGE */}
+                  <div className="relative">
+                    <img src={photo.src} className="rounded-xl w-full" />
 
-                  {/* WATERMARK */}
-                  <div className="pointer-events-none absolute top-2 right-3">
-                    <span className="rounded-md bg-white/30 px-2 py-[2px] text-[10px] font-medium tracking-wide text-black/40 backdrop-blur-sm md:text-xs">
-                      Prabhakar Shukla
-                    </span>
+                    {/* WATERMARK */}
+                    <div className="absolute top-2 right-2">
+                      <span className="text-[10px] bg-white/30 px-2 rounded text-black/50">
+                        Prabhakar Shukla
+                      </span>
+                    </div>
                   </div>
 
-                  {/* HOVER GLOW */}
-                  <div className="absolute inset-0 rounded-2xl bg-[#C3D809]/0 transition duration-500 group-hover:bg-[#C3D809]/10" />
-                  <div className="absolute inset-0 rounded-2xl shadow-[inset_0_0_0_1px_rgba(255,255,255,0.05)] transition duration-500 group-hover:shadow-[inset_0_0_0_1px_rgba(195,216,9,0.35),0_0_40px_rgba(195,216,9,0.08)]" />
+                  {/* TEXT */}
+                  <div className="mt-3">
+                    <p className="text-xs text-[#C3D809] uppercase">
+                      {photo.location}
+                    </p>
+
+                    {photo.story && (
+                      <p className="text-sm text-white/70 mt-1">
+                        {photo.story}
+                      </p>
+                    )}
+                  </div>
                 </div>
-              </motion.button>
+              </motion.div>
             ))}
           </motion.div>
         </section>
 
-        {/* ABOUT SECTION */}
-        <section id="about" className="px-6 pb-24 pt-10 md:px-12">
-          <motion.div
-            className="max-w-2xl"
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, amount: 0.2 }}
-            variants={staggerContainer}
-          >
-            <motion.p
-              variants={fadeUp}
-              className="mb-3 text-xs uppercase tracking-[0.3em] text-[#C3D809]"
-            >
-              About
-            </motion.p>
-
-            <motion.h2
-              variants={fadeUp}
-              className="text-3xl font-semibold text-white md:text-4xl"
-            >
-              A small visual collection of moments that stood out to me.
-            </motion.h2>
-
-            <motion.p
-              variants={fadeUp}
-              className="mt-5 text-sm leading-7 text-white/70 md:text-base"
-            >
-              I&apos;m not a professional photographer — I just enjoy capturing
-              frames that feel memorable, aesthetic, or simply worth keeping.
-              This space is a personal archive of some of my favorite shots.
-            </motion.p>
-          </motion.div>
+        {/* ABOUT */}
+        <section id="about" className="px-4 pb-16 md:px-12">
+          <p className="text-white/70 max-w-xl">
+            I’m not a professional photographer — I just enjoy capturing frames
+            that feel memorable, aesthetic, or simply worth keeping. This space
+            is a personal archive of some of my favorite shots.
+          </p>
         </section>
 
-        {/* CONTACT / FOOTER */}
+        {/* FOOTER */}
         <footer
           id="contact"
-          className="border-t border-white/10 px-6 py-8 md:px-12"
+          className="px-4 py-6 border-t border-white/10 flex justify-between"
         >
-          <motion.div
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, amount: 0.2 }}
-            variants={fadeUp}
-            className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-center"
-          >
-            <p className="text-sm text-white/50">
-              © 2026 Prabhakar. A personal collection of moments.
-            </p>
-
-            <div className="flex items-center gap-6">
-              <a
-                href="https://instagram.com/prabhakar_.shukla"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm uppercase tracking-[0.2em] text-white/70 transition hover:text-[#C3D809]"
-              >
-                Instagram
-              </a>
-
-              <a
-                href="https://www.linkedin.com/in/prabhakar-shukla-90334b399?utm_source=share_via&utm_content=profile&utm_medium=member_android"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm uppercase tracking-[0.2em] text-white/70 transition hover:text-[#C3D809]"
-              >
-                LinkedIn
-              </a>
-            </div>
-          </motion.div>
+          <p>© 2026 Prabhakar</p>
+          <div className="flex gap-4">
+            <a href="https://instagram.com/prabhakar_.shukla">Instagram</a>
+            <a href="https://www.linkedin.com/in/prabhakar-shukla-90334b399">
+              LinkedIn
+            </a>
+          </div>
         </footer>
 
-        {/* FULLSCREEN MODAL */}
+        {/* MODAL */}
         <AnimatePresence>
           {selectedImage && (
             <motion.div
-              className="fixed inset-0 z-[60] flex items-center justify-center bg-black/90 px-4"
+              className="fixed inset-0 bg-black/90 flex items-center justify-center"
               onClick={() => setSelectedImage(null)}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
             >
-              <button
-                className="absolute right-6 top-6 z-50 text-3xl text-white/80 transition hover:text-white"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setSelectedImage(null);
-                }}
-              >
-                ×
-              </button>
-
-              <div
-                className="relative"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <motion.img
-                  src={selectedImage}
-                  alt="Selected preview"
-                  className="max-h-[90vh] max-w-[90vw] rounded-2xl object-contain shadow-2xl"
-                  initial={{ scale: 0.92, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  exit={{ scale: 0.92, opacity: 0 }}
-                  transition={{ duration: 0.3 }}
+              <div onClick={(e) => e.stopPropagation()} className="relative">
+                <img
+                  src={selectedImage.src}
+                  className="max-h-[90vh] rounded-xl"
                 />
 
                 {/* MODAL WATERMARK */}
-                <div className="pointer-events-none absolute top-3 right-4">
-                  <span className="rounded-md bg-white/20 px-3 py-[4px] text-xs font-medium tracking-[0.15em] text-black/50 backdrop-blur-md md:text-sm">
+                <div className="absolute top-2 right-2">
+                  <span className="text-xs bg-white/30 px-2 rounded text-black/50">
                     Prabhakar Shukla
                   </span>
+                </div>
+
+                {/* TEXT */}
+                <div className="mt-3 text-center">
+                  <p className="text-[#C3D809]">{selectedImage.location}</p>
+                  {selectedImage.story && (
+                    <p className="text-white/70 text-sm mt-1">
+                      {selectedImage.story}
+                    </p>
+                  )}
                 </div>
               </div>
             </motion.div>
