@@ -1,4 +1,4 @@
-# 📸 Photography Portfolio – Akshay
+# 📸 Photography Portfolio – Prabhakar Shukla
 
 > A modern, aesthetic, and responsive photography portfolio website to showcase my best captures.
 
