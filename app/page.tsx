@@ -48,7 +48,7 @@ const photos = [
     alt: "Photo 6",
     location: "Home Lucknow, Uttar Pradesh",
     story:
-      "Rain reminds us that we cannot stop what can&apos;t be stopped . The world will turn, the seasons changes , the rain falls , and life goes on.",
+      "Rain reminds us that we cannot stop what can't be stopped . The world will turn, the seasons changes , the rain falls , and life goes on.",
   },
   {
     id: 7,
@@ -84,7 +84,7 @@ const photos = [
     src: "/images/photo11.jpg",
     alt: "Photo 11",
     location: "Rishikesh, Uttarakhand",
-    story: "like a scene from a dream you don&apos;t remember.",
+    story: "like a scene from a dream you don't remember.",
   },
   {
     id: 12,
